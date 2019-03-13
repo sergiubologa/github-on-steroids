@@ -2,4 +2,13 @@
   login works!
 </p>
 
-<button mat-raised-button color="primary" (click)="onLogin($event)">Login</button>
+<form (submit)="onLogin($event)">
+  <mat-form-field>
+    <input
+      matInput
+      placeholder="Your personal access token (PAT)"
+      [(ngModel)]="pat"
+      name="pat">
+  </mat-form-field>
+  <button mat-raised-button color="primary" type="submit">Login</button>
+</form>
