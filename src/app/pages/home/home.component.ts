@@ -1,5 +1,10 @@
 import { Component, OnInit } from "@angular/core";
-import { AuthService } from "src/app/services/auth.service";
+import { PullRequestService } from "src/app/services/pull-request.service";
+import { Observable } from "rxjs";
+import {
+  IPullRequests,
+  IPullRequest
+} from "src/app/models/pull-requests.model";
 
 @Component({
   selector: "app-home",
@@ -7,7 +12,16 @@ import { AuthService } from "src/app/services/auth.service";
   styleUrls: ["./home.component.scss"]
 })
 export class HomeComponent implements OnInit {
-  constructor() {}
+  public pullRequests: IPullRequest[];
+  displayedColumns: string[] = ["title", "updated_at", "state", "comments"];
 
-  ngOnInit() {}
+  constructor(private _pullRequestsService: PullRequestService) {}
+
+  ngOnInit() {
+    this._pullRequestsService
+      .getMyPullRequests()
+      .subscribe((result: IPullRequests) => {
+        this.pullRequests = result.items;
+      });
+  }
 }

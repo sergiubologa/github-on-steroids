@@ -14,7 +14,11 @@ export class AuthService {
   PAT_LOCAL_STORAGE_KEY = "PAT_GITHUB_KEY";
 
   get isLoggedIn() {
-    return !!localStorage.getItem(this.PAT_LOCAL_STORAGE_KEY);
+    return !!this.accessToken;
+  }
+
+  get accessToken() {
+    return localStorage.getItem(this.PAT_LOCAL_STORAGE_KEY);
   }
 
   constructor(private _httpService: HttpClient) {}
