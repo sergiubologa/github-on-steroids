@@ -7,6 +7,7 @@ import { LoginModule } from "./pages/login/login.module";
 import { HomeModule } from "./pages/home/home.module";
 import { NavbarComponent } from "./components/navbar/navbar.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { AppMaterialModule } from "./app-material.module";
 
 @NgModule({
   declarations: [AppComponent, NavbarComponent],
@@ -15,7 +16,8 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
     AppRoutingModule,
     LoginModule,
     HomeModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    AppMaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]

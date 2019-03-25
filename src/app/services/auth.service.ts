@@ -11,8 +11,11 @@ import {
   providedIn: "root"
 })
 export class AuthService {
-  isLoggedIn = false;
   PAT_LOCAL_STORAGE_KEY = "PAT_GITHUB_KEY";
+
+  get isLoggedIn() {
+    return !!localStorage.getItem(this.PAT_LOCAL_STORAGE_KEY);
+  }
 
   constructor(private _httpService: HttpClient) {}
 
@@ -21,7 +24,7 @@ export class AuthService {
       .get(`https://api.github.com/repos/uipath/activities?access_token=${pat}`)
       .pipe(
         map((result: HttpResponse<any>) => {
-          this.isLoggedIn = true;
+          console.log(result);
           localStorage.setItem(this.PAT_LOCAL_STORAGE_KEY, pat);
           return this.isLoggedIn;
         }),
@@ -32,6 +35,6 @@ export class AuthService {
   }
 
   logout() {
-    this.isLoggedIn = false;
+    localStorage.removeItem(this.PAT_LOCAL_STORAGE_KEY);
   }
 }

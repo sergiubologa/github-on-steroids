@@ -1,3 +1,9 @@
-<nav>
-  <h3>Github on steroids</h3>
-</nav>
+
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <span>GitHub on Steroids</span>
+    <span class="example-spacer"></span>
+    <button mat-button color="accent" *ngIf="authService.isLoggedIn"
+      (click)="logout($event)">Logout</button>
+  </mat-toolbar-row>
+</mat-toolbar>
