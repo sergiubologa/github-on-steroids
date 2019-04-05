@@ -8,6 +8,8 @@ import { HomeModule } from "./pages/home/home.module";
 import { NavbarComponent } from "./components/navbar/navbar.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { AppMaterialModule } from "./app-material.module";
+import { ServiceWorkerModule } from "@angular/service-worker";
+import { environment } from "../environments/environment";
 
 @NgModule({
   declarations: [AppComponent, NavbarComponent],
@@ -17,7 +19,8 @@ import { AppMaterialModule } from "./app-material.module";
     LoginModule,
     HomeModule,
     BrowserAnimationsModule,
-    AppMaterialModule
+    AppMaterialModule,
+    ServiceWorkerModule.register("sw.js", { enabled: environment.production })
   ],
   providers: [],
   bootstrap: [AppComponent]
