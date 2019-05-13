@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "service-worker-local": "ng build --prod && http-serve ./dist/github-on-steroids/",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

@@ -1,11 +1,19 @@
-import { Injectable } from "@angular/core";
-import { Observable, of } from "rxjs";
-import { tap, map, catchError } from "rxjs/operators";
 import {
-  HttpClient,
-  HttpResponse,
-  HttpErrorResponse
-} from "@angular/common/http";
+    HttpClient,
+    HttpErrorResponse,
+    HttpResponse,
+} from '@angular/common/http';
+import { Injectable } from '@angular/core';
+
+import {
+    Observable,
+    of,
+} from 'rxjs';
+import {
+    catchError,
+    map,
+    tap,
+} from 'rxjs/operators';
 
 @Injectable({
   providedIn: "root"
@@ -25,11 +33,18 @@ export class AuthService {
 
   login(pat: string): Observable<boolean> {
     return this._httpService
-      .get(`https://api.github.com/repos/uipath/activities?access_token=${pat}`)
+      .get(`https://api.github.com/user?&access_token=${pat}`)
       .pipe(
-        map((result: HttpResponse<any>) => {
-          console.log(result);
+        map((result: any) => {
           localStorage.setItem(this.PAT_LOCAL_STORAGE_KEY, pat);
+          navigator.serviceWorker.ready.then(registration => {
+            registration.active.postMessage({
+              type: "onLogin",
+              pat,
+              username: result.login
+            });
+          });
+
           return this.isLoggedIn;
         }),
         catchError((error: HttpErrorResponse) => {

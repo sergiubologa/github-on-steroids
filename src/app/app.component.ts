@@ -1,6 +1,8 @@
-import { Component, OnInit } from "@angular/core";
-import { SwPush } from "@angular/service-worker";
-import { observable } from "rxjs";
+import {
+    Component,
+    OnInit,
+} from '@angular/core';
+import { SwPush } from '@angular/service-worker';
 
 @Component({
   selector: "app-root",
@@ -10,27 +12,21 @@ export class AppComponent implements OnInit {
   constructor(private _swPush: SwPush) {}
 
   ngOnInit() {
+    // Register the service worker
     const keys = {
       publicKey:
-        "BD0LPxturk3ANv78KbteouZoWmkwo44_saX_5gyPF-WPfblvjJ0L92Ncie6mXB-nQEgBH_uL_BVK-9pKgvkF46k",
-      privateKey: "482FBEMauXpl-tHNa5sJUnzO0sIMRSSzqqd5-Ory_eQ"
+        "BCoL7NdPTq6qvhmci50WZnTnfI17y6BWb4jtcH8ufXZE6x8HgUthOaJlMnUHwW-U_4wPz-tHQmQ7AzDsCa9Ra3U",
+      privateKey: "kJIvFYM4MBRcKLPUMfqc_3I1c6RmHuxXmPnPQkbD-tY"
     };
+
     this._swPush
       .requestSubscription({
         serverPublicKey: keys.publicKey
       })
       .then(result => {
         console.log(result);
-        navigator.serviceWorker.ready.then(registration => {
-          registration.showNotification("Titluuuuu mboss", {
-            body: "Buzz! Buzz!",
-            // icon: "../images/touch/chrome-touch-icon-192x192.png",
-            vibrate: [200, 100, 200, 100, 200, 100, 200],
-            tag: "vibration-sample"
-          });
-        });
       })
-      .catch(error => console.log(error))
+      .catch(error => console.error(error))
       .finally(() => console.log("complete"));
   }
 }

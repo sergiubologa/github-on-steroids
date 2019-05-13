@@ -1,9 +1,34 @@
-
 <mat-toolbar color="primary">
-  <mat-toolbar-row>
-    <span>GitHub on Steroids</span>
-    <span class="example-spacer"></span>
-    <button mat-button color="accent" *ngIf="authService.isLoggedIn"
-      (click)="logout($event)">Logout</button>
-  </mat-toolbar-row>
+    <mat-toolbar-row>
+        <span>GitHub on Steroids</span>
+
+        <span class="example-spacer"></span>
+
+        <div *ngIf="authService.isLoggedIn"
+            class="notifications">
+            <button *ngIf="notificationsStatus === 'default'"
+                (click)="onNotificationsRequestClick()"
+                mat-icon-button
+                matTooltip="Activate notifications">
+                <mat-icon>notifications_none</mat-icon>
+            </button>
+            <button *ngIf="notificationsStatus === 'granted'"
+                (click)="onNotificationsDisableClick()"
+                mat-icon-button
+                matTooltip="Notifications are active"
+                class="active">
+                <mat-icon>notifications</mat-icon>
+            </button>
+            <button *ngIf="notificationsStatus === 'denied'"
+                (click)="onNotificationsDeniedClick()"
+                mat-icon-button
+                matTooltip="Notifications are off."
+                class="blocked">
+                <mat-icon>notifications_off</mat-icon>
+            </button>
+        </div>
+
+        <button mat-button color="accent" *ngIf="authService.isLoggedIn"
+            (click)="logout($event)">Logout</button>
+    </mat-toolbar-row>
 </mat-toolbar>

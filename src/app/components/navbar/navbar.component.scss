@@ -1,3 +1,14 @@
-.example-spacer {
-  flex: 1 1 auto;
+:host {
+  .example-spacer {
+    flex: 1 1 auto;
+  }
+
+  .notifications {
+    .active {
+      color: #81c784;
+    }
+    .blocked {
+      color: #f48fb1;
+    }
+  }
 }
