@@ -74,7 +74,7 @@
     const splittedLatestCommentUrl = latestCommentUrl.split("/");
     const commentId =
       splittedLatestCommentUrl[splittedLatestCommentUrl.length - 1];
-    return `https://github.com/UiPath/Activities/pull${prId}#issuecomment-${commentId}`;
+    return `https://github.com/UiPath/Activities/pull/${prId}#issuecomment-${commentId}`;
   };
 })();
 
