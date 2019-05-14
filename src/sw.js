@@ -31,14 +31,8 @@
   self.addEventListener(
     "notificationclick",
     event => {
+      clients.openWindow(event.notification.data.url);
       event.notification.close();
-      let url = event.notification.data.url;
-
-      if (event.action === "open_latest_comment_url") {
-        url = event.notification.data.latestCommentUrl;
-      }
-
-      clients.openWindow(url);
     },
     false
   );
@@ -59,21 +53,28 @@
           options: {
             actions: [
               {
-                action: "open_url",
+                action: "open",
                 title: "Open"
-              },
-              {
-                action: "open_latest_comment_url",
-                title: "Latest comment"
               }
             ],
             data: {
-              url: not.subject.url,
-              latestCommentUrl: not.subject.latest_comment_url
+              url: generateNotificationUrl(
+                not.subject.url,
+                not.subject.latest_comment_url
+              )
             }
           }
         };
       });
+  };
+
+  const generateNotificationUrl = (prUrl, latestCommentUrl) => {
+    const splitedPrUrl = prUrl.split("/");
+    const prId = splitedPrUrl[splitedPrUrl.length - 1];
+    const splittedLatestCommentUrl = latestCommentUrl.split("/");
+    const commentId =
+      splittedLatestCommentUrl[splittedLatestCommentUrl.length - 1];
+    return `https://github.com/UiPath/Activities/pull${prId}#issuecomment-${commentId}`;
   };
 })();
 
