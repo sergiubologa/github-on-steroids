@@ -16,8 +16,11 @@ export class PullRequestService {
   ) {}
 
   getMyPullRequests(): Observable<IPullRequests> {
+    const username = localStorage.getItem(
+      this._authService.USERNAME_LOCAL_STORAGE_KEY
+    );
     return this._httpService.get<IPullRequests>(
-      `https://api.github.com/search/issues?q=is:pr+repo:uipath/activities+author:sergiubologa&access_token=${
+      `https://api.github.com/search/issues?q=is:pr+is:open+repo:uipath/activities+author:${username}&access_token=${
         this._authService.accessToken
       }`
     );

@@ -2,7 +2,7 @@
   "use strict";
 
   let pat, username;
-  const pollingIntervalMs = 5 * 60 * 1000;
+  const pollingIntervalMs = 30 * 1000;
 
   self.addEventListener("message", function(event) {
     if (event.data.type === "onLogin") {
@@ -31,63 +31,49 @@
   self.addEventListener(
     "notificationclick",
     event => {
-      clients.openWindow(event.notification.data.url);
       event.notification.close();
+      let url = event.notification.data.url;
+
+      if (event.action === "open_latest_comment_url") {
+        url = event.notification.data.latestCommentUrl;
+      }
+
+      clients.openWindow(url);
     },
     false
   );
 
   const getLatestCommentsNotifications = async () => {
-    const prsUrl = `https://api.github.com/search/issues?q=is:pr+is:open+repo:uipath/activities+author:${username}&access_token=${pat}`;
-
-    const prsResult = await fetch(prsUrl);
-    const prs = await prsResult.json();
-    const commentsRequests = [];
     const date = new Date();
-    // date.setMilliseconds(date.getMilliseconds() - pollingIntervalMs);
-    date.setDate(date.getDate() - 4);
+    date.setMilliseconds(date.getMilliseconds() - pollingIntervalMs);
     const since = date.toISOString();
+    const url = `https://api.github.com/notifications?since=${since}&all=true&access_token=${pat}`;
+    const result = await fetch(url);
+    const notifications = await result.json();
 
-    prs.items.forEach(pr => {
-      if (pr.comments > 0) {
-        commentsRequests.push(
-          fetch(
-            `https://api.github.com/repos/uipath/activities/issues/${
-              pr.number
-            }/comments?since=${since}&access_token=${pat}`
-          )
-        );
-      }
-
-      commentsRequests.push(
-        fetch(
-          `https://api.github.com/repos/uipath/activities/pulls/${
-            pr.number
-          }/comments?since=${since}&access_token=${pat}`
-        )
-      );
-    });
-
-    const result = await Promise.all(commentsRequests);
-    const jsonResult = await Promise.all(result.map(comment => comment.json()));
-
-    const notifications = jsonResult
-      .filter(comments => comments.length > 0)
-      .flat()
-      .map(comment => {
-        const type = comment.pull_request_review_id ? "code" : "PR";
-        const url = comment.html_url;
-
+    return notifications
+      .filter(not => not.unread === true && not.subject)
+      .map(not => {
         return {
-          title: `You have a new ${type} comment!`,
+          title: not.subject.title,
           options: {
-            actions: [{ action: "open_url", title: "Open" }],
-            data: { url }
+            actions: [
+              {
+                action: "open_url",
+                title: "Open"
+              },
+              {
+                action: "open_latest_comment_url",
+                title: "Latest comment"
+              }
+            ],
+            data: {
+              url: not.subject.url,
+              latestCommentUrl: not.subject.latest_comment_url
+            }
           }
         };
       });
-
-    return notifications;
   };
 })();
 
