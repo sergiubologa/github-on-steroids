@@ -2,7 +2,7 @@
   "use strict";
 
   let pat, username;
-  const pollingIntervalMs = 30 * 60 * 1000;
+  const pollingIntervalMs = 5 * 60 * 1000;
 
   self.addEventListener("message", function(event) {
     if (event.data.type === "onLogin") {
@@ -38,7 +38,7 @@
   );
 
   const getLatestCommentsNotifications = async () => {
-    const prsUrl = `https://api.github.com/search/issues?q=is:pr+repo:uipath/activities+author:${username}&access_token=${pat}`;
+    const prsUrl = `https://api.github.com/search/issues?q=is:pr+is:open+repo:uipath/activities+author:${username}&access_token=${pat}`;
 
     const prsResult = await fetch(prsUrl);
     const prs = await prsResult.json();
