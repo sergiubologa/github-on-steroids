@@ -29,7 +29,7 @@ export class AuthService {
 
   login(pat: string): Observable<boolean> {
     return this._httpService
-      .get(`https://api.github.com/user?&access_token=${pat}`)
+      .get(`https://api.github.com/user`, { headers:{'Authorization': `Bearer ${pat}` }})
       .pipe(
         map((result: any) => {
           localStorage.setItem(this.PAT_LOCAL_STORAGE_KEY, pat);

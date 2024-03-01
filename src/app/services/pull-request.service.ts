@@ -20,9 +20,8 @@ export class PullRequestService {
       this._authService.USERNAME_LOCAL_STORAGE_KEY
     );
     return this._httpService.get<IPullRequests>(
-      `https://api.github.com/search/issues?q=is:pr+is:open+repo:uipath/activities+author:${username}&access_token=${
-        this._authService.accessToken
-      }`
+      // `https://api.github.com/search/issues?q=is:pr+is:open+repo:uipath/du-app+author:${username}`, { headers:{'Authorization': `Bearer ${this._authService.accessToken}` }}
+      `https://api.github.com/search/issues?q=is:pr+is:open+repo:sergiubologa/github-on-steroids`, { headers:{'Authorization': `Bearer ${this._authService.accessToken}` }}
     );
   }
 }
