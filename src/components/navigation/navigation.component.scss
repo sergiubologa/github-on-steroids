@@ -1,0 +1,12 @@
+.current-user {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  .avatar {
+    border-radius: 50%;
+    height: 3rem;
+    width: 3rem;
+  }
+}

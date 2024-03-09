@@ -1,0 +1,16 @@
+<mat-toolbar color="primary"
+  ><span>GitHub on Steroids</span>
+  <div
+    *ngrxLet="{
+      userData: userData$
+    } as vm"
+    class="current-user"
+  >
+    <span> Welcome back, {{ vm.userData.data.viewer.name }}! </span>
+    <img
+      class="avatar"
+      src="{{ vm.userData.data.viewer.avatarUrl }}"
+      alt="avatar"
+    />
+  </div>
+</mat-toolbar>
