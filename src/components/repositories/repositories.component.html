@@ -1,28 +1,27 @@
 <div *ngrxLet="userData$ as userData">
   <h2 class="mat-h2">Organizations:</h2>
   <div class="organizations">
-    @for( org of userData.data.viewer.organizations.nodes; track $index) {
-
-    <mat-card class="org-card">
-      <mat-card-header>
-        <mat-card-title class="mat-h2">{{ org.login }}</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <img
-          mat-card-image
-          src="{{ org.avatarUrl }}"
-          alt="{{ org.login }}"
-          class="org-image"
-        />
-        <mat-card-subtitle class="mat-body-2">{{
-          org.description
-        }}</mat-card-subtitle>
-      </mat-card-content>
-    </mat-card>
+    @for (org of userData.data.viewer.organizations.nodes; track $index) {
+      <mat-card class="org-card">
+        <mat-card-header>
+          <mat-card-title class="mat-h2">{{ org.login }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <img
+            mat-card-image
+            src="{{ org.avatarUrl }}"
+            alt="{{ org.login }}"
+            class="org-image"
+          />
+          <mat-card-subtitle class="mat-body-2">{{
+            org.description
+          }}</mat-card-subtitle>
+        </mat-card-content>
+      </mat-card>
     }
   </div>
 
-  <h2 class="mat-h2">Pull Requests</h2>
+  <h2 class="mat-h2">Pull Requests:</h2>
   <mat-card>
     <mat-card-content>Simple card</mat-card-content>
   </mat-card>

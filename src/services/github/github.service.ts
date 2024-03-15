@@ -60,7 +60,7 @@ export class GithubService {
   }
 
   private _promptPat = (
-    message = 'Please enter your GitHub Personal Access Token (PAT)'
+    message = 'Please enter your GitHub Personal Access Token (PAT)',
   ) => {
     let pat: string | null = null;
     pat = prompt(message);
@@ -86,14 +86,14 @@ export class GithubService {
         // The response body may contain clues as to what went wrong.
         console.error(
           `Backend returned code ${networkError.status}, body was: `,
-          networkError.error
+          networkError.error,
         );
       }
     }
 
     // Return an observable with a user-facing error message.
     return throwError(
-      () => new Error('Something bad happened; please try again later.')
+      () => new Error('Something bad happened; please try again later.'),
     );
   }
 }
