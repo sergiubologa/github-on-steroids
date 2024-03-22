@@ -1,0 +1,39 @@
+<mat-toolbar color="secondary" class="nav-bar">
+  <ng-container
+    *ngrxLet="{
+      rateLimit: rateLimit$,
+      isLoadingPullRequests: isLoadingPullRequests$,
+      userData: userData$
+    } as vm"
+  >
+    <span class="mat-headline-4 title">GitHub on Steroids</span>
+
+    <button
+      mat-mini-fab
+      color="accent"
+      aria-label="refresh pull requests"
+      class="refresh-button"
+      [class.is-loading]="vm.isLoadingPullRequests"
+      [disabled]="vm.isLoadingPullRequests"
+      [matTooltip]="vm.rateLimit.remaining + ' / ' + vm.rateLimit.limit"
+      (click)="refreshPullRequests()"
+    >
+      <mat-icon>refresh</mat-icon>
+    </button>
+
+    <div class="current-user">
+      @if (vm.userData) {
+        <span> {{ vm.userData.name }} </span>
+        <img class="avatar" src="{{ vm.userData.avatarUrl }}" alt="avatar" />
+      }
+
+      @if (vm.isLoadingPullRequests) {
+        <mat-progress-bar
+          mode="indeterminate"
+          class="progress-bar"
+          color="accent"
+        />
+      }
+    </div>
+  </ng-container>
+</mat-toolbar>

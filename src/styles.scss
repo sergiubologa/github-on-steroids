@@ -1,5 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
-@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+
+:root {
+  --transition-duration: 225ms;
+  --transition-function: cubic-bezier(0.4, 0, 0.2, 1);
+
+  --link-color: #7fb2fb;
+}
 
 html,
 body {
@@ -7,5 +13,4 @@ body {
 }
 body {
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
 }

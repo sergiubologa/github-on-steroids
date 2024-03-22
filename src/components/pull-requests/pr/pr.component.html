@@ -1,0 +1,61 @@
+<mat-expansion-panel [disabled]="!pr().bodyHTML">
+  <mat-expansion-panel-header>
+    <div class="pr" [class.is-new]="!pr().isReadByViewer">
+      <div class="repository">
+        <img
+          class="repo-owner-image"
+          src="{{ pr().repository.owner.avatarUrl }}"
+          alt="{{ pr().repository.owner.login }}"
+        />
+        <span>{{ pr().repository.name }}</span>
+
+        <div class="labels">
+          @for (label of pr().labels.nodes; track $index) {
+            <span class="label" [style.--label-color]="'#' + label.color">{{
+              label.name
+            }}</span>
+          }
+        </div>
+      </div>
+      <h2 class="title">
+        <a [href]="pr().url" target="_blank">
+          {{ pr().title }}
+        </a>
+      </h2>
+
+      <div class="subtitle-wrapper">
+        <img
+          class="author-image"
+          src="{{ pr().author.avatarUrl }}"
+          alt="{{ pr().author.login }}"
+        />
+        <div class="subtitle-group">
+          <div class="mat-subtitle-1 subtitle">
+            Opened: {{ pr().createdAt | timeAgo: false }} by
+            {{ pr().author.login }}
+          </div>
+          <div class="mat-subtitle-1 subtitle">
+            Last updated: {{ pr().updatedAt | timeAgo: false }}
+          </div>
+        </div>
+
+        @if (pr().totalCommentsCount > 0) {
+          <div class="comments">
+            <mat-icon
+              aria-hidden="false"
+              aria-label="number of comments"
+              fontIcon="message"
+            />
+            <span>{{ pr().totalCommentsCount }}</span>
+          </div>
+        }
+
+        <!-- <div>reviewDecision: {{ pr().reviewDecision }}</div> -->
+      </div>
+    </div>
+  </mat-expansion-panel-header>
+
+  <div class="card-content" mat-expansion-panel-content>
+    <app-html-embed [html]="pr().bodyHTML"></app-html-embed>
+  </div>
+</mat-expansion-panel>

@@ -1,0 +1,29 @@
+::ng-deep .html-embed {
+  a {
+    color: var(--link-color);
+    text-decoration-color: transparent;
+    transition: text-decoration-color var(--transition-duration)
+      var(--transition-function);
+
+    &:hover {
+      text-decoration-color: var(--link-color);
+    }
+  }
+
+  code {
+    background-color: var(--mat-toolbar-container-background-color);
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+  }
+
+  pre {
+    overflow: auto;
+    background-color: var(--mat-toolbar-container-background-color);
+    padding: 1rem;
+  }
+
+  img,
+  video {
+    max-width: 100%;
+  }
+}
