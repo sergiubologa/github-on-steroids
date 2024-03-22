@@ -1,9 +1,13 @@
 {
   "name": "github-on-steroids",
-  "version": "0.0.0",
+  "version": "0.0.2",
+  "engines": {
+    "node": "^20"
+  },
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "dev": "ng serve",
+    "start": "ng build && serve -s dist/github-on-steroids/browser -p 4200",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
@@ -44,6 +48,7 @@
     "karma-jasmine": "5.1.0",
     "karma-jasmine-html-reporter": "2.1.0",
     "prettier": "3.2.5",
+    "serve": "14.2.1",
     "typescript": "5.4.2"
   }
 }
