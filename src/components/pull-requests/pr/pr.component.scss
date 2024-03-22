@@ -1,0 +1,130 @@
+.mat-expansion-panel-header {
+  height: auto;
+  padding-left: 0;
+  &.mat-expanded {
+    height: auto;
+  }
+
+  &[aria-disabled="true"] {
+    color: inherit;
+  }
+}
+
+::ng-deep .mat-expansion-panel-content {
+  box-shadow: 0 2px 0 var(--mat-toolbar-container-background-color) inset;
+}
+
+.pr {
+  &.is-new {
+    box-shadow: 4px 0 0 rgb(37, 217, 37) inset;
+  }
+
+  padding: 1rem;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  .repository {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-weight: bold;
+    color: var(--mat-card-subtitle-text-color);
+
+    font-size: 16px;
+    line-height: 1em;
+
+    .repo-owner-image {
+      height: 1em;
+      border-radius: 2px;
+    }
+  }
+
+  .labels {
+    margin-left: 1rem;
+    align-self: flex-start;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+
+    .label {
+      font-size: 12px;
+      line-height: 18px;
+      padding: 0 7px;
+
+      --label-color-darker: color-mix(in srgb, var(--label-color), #000 50%);
+      --label-color-lighter: color-mix(in srgb, var(--label-color), #fff 50%);
+
+      border: 1px solid var(--label-color-lighter);
+      color: var(--label-color-lighter);
+      background-color: var(--label-color-darker);
+
+      border-radius: 2em;
+    }
+  }
+
+  .title {
+    margin: 0;
+    margin: 0.25rem 0;
+
+    a {
+      color: var(--mat-app-text-color);
+      text-decoration-color: transparent;
+
+      transition-property: color, text-decoration-color;
+      transition-duration: var(--transition-duration);
+      transition-timing-function: var(--transition-function);
+
+      &:hover {
+        text-decoration-color: var(--link-color);
+        color: var(--link-color);
+      }
+    }
+  }
+
+  .subtitle-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    .author-image {
+      height: 3rem;
+      border-radius: 50%;
+    }
+
+    .subtitle-group {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+
+      .subtitle {
+        margin: 0;
+        color: var(--mat-card-subtitle-text-color);
+
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+    }
+
+    .comments {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.25rem;
+    }
+  }
+}
+
+.card-content {
+  padding-top: 1rem;
+
+  a {
+    color: var(--mat-app-text-color);
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

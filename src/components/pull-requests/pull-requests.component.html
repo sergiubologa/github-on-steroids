@@ -1,0 +1,12 @@
+<div *ngrxLet="pullRequests$ as pullRequests">
+  @if (pullRequests.length) {
+    <div
+      class="pull-requests"
+      [class.is-loading]="isLoadingPullRequests$ | async"
+    >
+      @for (pr of pullRequests; track "id") {
+        <app-pr [pr]="pr" />
+      }
+    </div>
+  }
+</div>

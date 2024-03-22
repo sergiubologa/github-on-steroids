@@ -1,29 +1,40 @@
-import { Component, OnInit } from '@angular/core';
-import {
-  GithubService,
-  IGitHubUser,
-} from '../../services/github/github.service';
-import { EMPTY, Observable } from 'rxjs';
+import { Component, inject } from '@angular/core';
+import { GithubService } from '../../services/github/github.service';
 import { CommonModule } from '@angular/common';
 import { LetDirective } from '@ngrx/component';
 import { MatCardModule } from '@angular/material/card';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { ApolloQueryResult } from '@apollo/client/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-navigation',
   standalone: true,
-  imports: [CommonModule, LetDirective, MatCardModule, MatToolbarModule],
-  providers: [GithubService],
+  imports: [
+    CommonModule,
+    LetDirective,
+    MatCardModule,
+    MatToolbarModule,
+    MatProgressBarModule,
+    MatIconModule,
+    MatButtonModule,
+    MatTooltipModule,
+  ],
+
   templateUrl: './navigation.component.html',
   styleUrl: './navigation.component.scss',
 })
-export class NavigationComponent implements OnInit {
-  userData$: Observable<ApolloQueryResult<IGitHubUser>> = EMPTY;
+export class NavigationComponent {
+  private readonly _githubService = inject(GithubService);
 
-  constructor(private githubService: GithubService) {}
+  readonly userData$ = this._githubService.getCurrentUser$();
+  readonly rateLimit$ = this._githubService.getRateLimit$();
+  readonly isLoadingPullRequests$ =
+    this._githubService.getIsLoadingPullRequests$();
 
-  ngOnInit() {
-    this.userData$ = this.githubService.getCurrentUser$();
-  }
+  readonly refreshPullRequests = this._githubService.refreshPullRequests.bind(
+    this._githubService,
+  );
 }

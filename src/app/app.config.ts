@@ -6,6 +6,8 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { provideHttpClient } from '@angular/common/http';
 import { graphqlProvider } from './graphql.provider';
 
+import { provideStoreDevtools } from '@ngrx/store-devtools';
+
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
@@ -13,5 +15,6 @@ export const appConfig: ApplicationConfig = {
     provideAnimationsAsync(),
     provideHttpClient(),
     graphqlProvider,
+    provideStoreDevtools({ maxAge: 25, logOnly: false }),
   ],
 };
